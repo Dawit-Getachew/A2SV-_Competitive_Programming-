@@ -1,0 +1,23 @@
+I=1
+V=5
+X=10
+L=50
+C=100
+D=500
+M=1000
+num=input()
+numS=0
+for i in range(len(num)):
+    if(num[i]=="I"):
+        numS=numS+I
+    elif(num[i]=="V"):
+        numS=numS+V
+    elif(num[i]=="X"):
+        numS=numS+X
+    elif(num[i]=="L"):
+        numS=numS+L
+    elif(num[i]=="C"):
+        numS=numS+D
+    elif(num[i]=="M"):
+        numS=numS+M
+print(numS)
