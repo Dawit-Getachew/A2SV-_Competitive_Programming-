@@ -5,5 +5,5 @@ class Solution:
         sent=""
         for i in s:
             sent += (i[:-1]+" ")
-        sent.strip()
-        return sent
+        s=sent.strip()
+        return s
