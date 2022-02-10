@@ -3,7 +3,7 @@ class Solution:
         ans = deque()
         for elem in pushed:
             ans.append(elem)
-            while popped and ans and ans[-1] == popped[0] :
+            while ans and popped and ans[-1] == popped[0] :
                 popped.pop(0)
                 ans.pop()
         return True if not popped else False
