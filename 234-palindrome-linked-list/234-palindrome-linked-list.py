@@ -5,19 +5,21 @@
 #         self.next = next
 class Solution:
     def isPalindrome(self, head):
+        # find the middle by using fast pointer
         fast = slow = head
         while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
-        rever = None
+        node = None
+        # Reverse the node after the mid element
         while slow:
-            temp = slow.next
-            slow.next = rever
-            rever = slow
-            slow = temp
-        while rever:
-            if rever.val != head.val:
+            nxt = slow.next
+            slow.next = node
+            node = slow
+            slow = nxt
+        while node:
+            if node.val != head.val:
                 return False
-            rever = rever.next
+            node = node.next
             head = head.next
         return True
