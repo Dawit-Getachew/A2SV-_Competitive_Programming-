@@ -16,6 +16,7 @@ class Solution:
             return False
         if p.val == q.val:
             return self.checkTree(p.left, q.left) and self.checkTree (p.right, q.right)
+        
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         return self.checkTree(p,q)
     
