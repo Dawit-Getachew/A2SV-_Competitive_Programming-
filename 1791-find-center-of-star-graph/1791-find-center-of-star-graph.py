@@ -6,6 +6,4 @@ class Solution:
         for i in range(len(edges)):
             if edgeOne == edges[i][0] or edgeOne == edges[i][1]:
                 edgeOneCouner+=1
-            if edgeTwo == edges[i][0] or edgeTwo == edges[i][1]:
-                edgeTwoCounter+=1
         return edgeOne if edgeOneCouner == len(edges) else edgeTwo
