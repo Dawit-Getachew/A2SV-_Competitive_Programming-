@@ -1,5 +1,5 @@
 # Heap Sort
-## Medium 
+##  Medium 
 <div class="problem-statement">
                 <p></p><p><span style="font-size:18px">Given an array of size N. The task is to sort the array elements by completing functions <strong>heapify</strong>() and <strong>buildHeap</strong>() which are used to implement Heap Sort.</span></p>
 
