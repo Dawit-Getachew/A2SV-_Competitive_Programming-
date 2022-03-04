@@ -1,12 +1,10 @@
 import heapq as h
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = Counter(nums)
-        priorityNum = []
-        res = []
-        for n in count:
-            priorityNum.append((-count[n], n))
+        count, res = Counter(nums), []
+        priorityNum = [(count[x],x) for x in count]
         h.heapify(priorityNum)
-        for i in range(k):
-            res.append(h.heappop(priorityNum)[1])
-        return res
+        while len(priorityNum) != k:
+            h.heappop(priorityNum)
+        priorityNum = [y for x,y in priorityNum]
+        return priorityNum
