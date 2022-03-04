@@ -5,11 +5,8 @@ class Solution:
         priorityNum = []
         res = []
         for n in count:
-            priorityNum.append((count[n], n))
-        for x,y in priorityNum:
-            res.append((-x,y))
-        h.heapify(res)
-        priorityNum.clear()
+            priorityNum.append((-count[n], n))
+        h.heapify(priorityNum)
         for i in range(k):
-            priorityNum.append(h.heappop(res)[1])
-        return priorityNum
+            res.append(h.heappop(priorityNum)[1])
+        return res
