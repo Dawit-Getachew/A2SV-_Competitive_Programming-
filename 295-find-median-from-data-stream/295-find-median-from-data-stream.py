@@ -7,11 +7,13 @@ class MedianFinder:
 
     def addNum(self, num: int) -> None:
         if len(self.leftHalf) > len(self.rightHalf):
-            temp = h.heappushpop(self.leftHalf, -num)
-            h.heappush(self.rightHalf, -temp)
+            temp = h.heappush(self.leftHalf, -num)
+            temp2 = h.heappop(self.leftHalf)
+            h.heappush(self.rightHalf, -temp2)
         else:
-            temp = h.heappushpop(self.rightHalf, num)
-            h.heappush(self.leftHalf, -temp)
+            temp = h.heappush(self.rightHalf, num)
+            temp2 = h.heappop(self.rightHalf)
+            h.heappush(self.leftHalf, -temp2)
     def findMedian(self) -> float:
         if len(self.leftHalf) == len(self.rightHalf):
             temp = (-self.leftHalf[0] + self.rightHalf[0])/2
