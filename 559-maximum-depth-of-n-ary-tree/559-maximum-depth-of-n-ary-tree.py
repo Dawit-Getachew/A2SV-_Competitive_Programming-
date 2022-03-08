@@ -7,10 +7,15 @@ class Node:
 """
 
 class Solution: 
-    def maxDepth(self, root: 'Node') -> int:
+    def recur(self, root):
         if not root:
             return 0
+        depth = 0
         if not root.children:
             return 1
-        return 1 + max([self.maxDepth(child) for child in root.children])
-            
+        for child in root.children:
+            depth = max(depth, self.recur(child))
+        return depth + 1
+    def maxDepth(self, root: 'Node') -> int:
+        return self.recur(root)
+        
