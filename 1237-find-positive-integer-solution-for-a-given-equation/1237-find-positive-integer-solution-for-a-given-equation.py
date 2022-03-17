@@ -11,19 +11,19 @@
 
 class Solution:
     def findSolution(self, customfunction: 'CustomFunction', z: int) -> List[List[int]]:
-        first, last = 1, 1000
         res = []
-        def binarySearch(x,left,right):
-            if left > right:
-                return -1
-            mid  = left + (right - left)//2
-            temp = customfunction.f(x, mid)
-            if temp == z:
-                res.append([x, mid])
-            elif temp > z:
-                binarySearch(x, left, mid-1)
-            elif temp < z:
-                 binarySearch(x,mid+1, right)
         for i in range(1,1000):
-            binarySearch(i, first, last)
+            left, right = 1, 1000
+            while left <= right:
+                mid  = left + (right - left)//2
+                temp = customfunction.f(i, mid)
+                if temp == z:
+                    res.append([i, mid])
+                    break
+                elif temp > z:
+                    right = mid - 1
+                    continue
+                elif temp < z:
+                    left = mid + 1
+                    continue
         return res
