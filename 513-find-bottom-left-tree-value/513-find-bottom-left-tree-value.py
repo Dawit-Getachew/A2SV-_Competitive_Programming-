@@ -5,15 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        self.depth, self.result = 0, None
-        def helper(root, currRow):
-            if root is None:
-                return
-            if currRow > self.depth:
-                self.depth = currRow
-                self.result = root.val
-            helper(root.left, currRow+1)
-            helper(root.right, currRow+1)
-        helper(root, 1)
+    def Helper(self, root, depth):
+        if not root:
+            return None
+        if depth > self.maxDepth:
+            self.maxDepth = depth
+            self.result = root.val
+        self.Helper(root.left, depth+1)
+        self.Helper(root.right, depth+1)
+
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int: 
+        self.result, self.maxDepth = root.val,0
+        self.Helper(root,0)
         return self.result
