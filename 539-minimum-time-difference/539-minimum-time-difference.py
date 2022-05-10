@@ -10,5 +10,5 @@ class Solution:
         minimum = min(times[-1] - times[0], 1440 - times[-1] + times[0])
         print(times)
         for i in range(len(times)-1):
-            minimum = min(minimum, times[i+1] - times[i], 1440 + times[i] - times[i+1])
+            minimum = min(minimum, times[i+1] - times[i])
         return minimum
