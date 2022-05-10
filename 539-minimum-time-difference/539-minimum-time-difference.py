@@ -1,8 +1,6 @@
 class Solution:
     def findMinDifference(self, timePoints: List[str]) -> int:
-        times = []
-        for timePoint in timePoints:
-            times.append( int(timePoint.split(":")[0])*60 +int(timePoint.split(":")[1]))
+        times = [(int(time.split(":")[0])*60 + int(time.split(":")[1])) for time in timePoints]
         for i in range(len(times)):
             if times[i] == 0:
                 times[i] = 24*60
