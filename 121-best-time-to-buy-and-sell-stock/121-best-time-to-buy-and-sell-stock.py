@@ -1,8 +1,11 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        minPrice, maxPrice = float('inf'), 0
+        diff = 0
+        minDiff = float('inf')
+        maxDiff = 0
         for i in prices:
-            minPrice = min(minPrice,i)
-            change = i - minPrice
-            maxPrice = max(maxPrice,change)
-        return maxPrice
+            minDiff = min(minDiff, i)
+            change = i - minDiff
+            diff = max(diff, change)
+        return diff
+        
