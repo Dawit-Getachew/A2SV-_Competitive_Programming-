@@ -3,10 +3,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        z = 0
+        idx = 0
         for i in range(len(nums)):
             if nums[i] != 0:
-                nums[z] = nums[i]
-                z += 1
-        for i in range(z, len(nums)):
+                nums[idx] = nums[i]
+                idx += 1
+        for i in range(idx, len(nums)):
             nums[i] = 0
+        return nums
