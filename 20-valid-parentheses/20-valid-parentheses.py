@@ -1,31 +1,27 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
-        def push(stack, inp):
-            stack.append(inp)
-        def pop (stack):
-            if len(stack) == 0:
-                return
-            else:
+        def push(item):
+            stack.append(item)
+        def Remove(stack):
+            if stack:
                 stack.pop()
+            return
         def peak(stack):
-            if len(stack) == 0:
-                return
-            return stack[-1]
-        opening = "({["
-        closing = ")}]"
+            if stack:
+                return stack[-1]
         for i in s:
-            if i in opening:
-                push(stack, i)
-            elif i in closing and len(stack)!=0:
-                if i == ")" and peak(stack) == "(":
-                    pop(stack)
-                elif i == "}" and peak(stack) == "{":
-                    pop(stack)
-                elif i == "]" and peak(stack) == "[":
-                    pop(stack)
-                else:
-                    return False
+            if i in "([{":
+                stack.append(i)
+            elif i == ")" and peak(stack) == "(":
+                Remove(stack)
+            elif i == "]" and peak(stack) == "[":
+                Remove(stack)
+            elif i == "}" and peak(stack) == "{":
+                Remove(stack)
             else:
                 return False
-        return len(stack) == 0
+        return False if len(stack) != 0 else True
+        
+        
+            
