@@ -10,8 +10,9 @@ class Solution:
         def peak(stack):
             if stack:
                 return stack[-1]
+        newS = {"(","[","{"}
         for i in s:
-            if i in "([{":
+            if i in newS:
                 stack.append(i)
             elif i == ")" and peak(stack) == "(":
                 Remove(stack)
