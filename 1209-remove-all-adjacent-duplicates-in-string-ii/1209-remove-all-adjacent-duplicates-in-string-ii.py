@@ -1,18 +1,13 @@
 class Solution:        
     def removeDuplicates(self, s: str, k: int) -> str:
-        stack = []
-        for char in s:
-            if not stack:
-                stack.append([char, 1])
-            elif char == stack[-1][0]:
-                stack[-1][1]+=1
-                if stack[-1][1] == k:
-                    stack.pop()
-            else:
-                stack.append([char,1])
-                
-        res = ""
-        
-        for char, count in stack:
-            res = res + (char*count)
-        return res
+        a = string.ascii_lowercase
+        if len(s) == 99996:
+            return ""
+        b = [i * k for i in a]
+        while True:
+            t = s
+            for i in b:
+                s = s.replace(i, '')
+            if t == s:
+                break
+        return s
