@@ -1,19 +1,12 @@
 class Solution:
-    def __init__(self):
-        self.stack = []
-    def push(self,val):
-        self.stack.append(val)
-    def pop(self):
-        if self.stack:
-            self.stack.pop()
-    def peak(self):
-        if self.stack:
-            return self.stack[-1]
     def removeDuplicates(self, s: str) -> str:
+        stack = []
         for char in s:
-            if char != self.peak():
-                self.push(char)
+            if len(stack)==0:
+                stack.append(char)
+            elif char != stack[-1]:
+                stack.append(char)
             else:
-                self.pop()
-        return "".join(self.stack)
+                stack.pop()
+        return "".join(stack)
         
