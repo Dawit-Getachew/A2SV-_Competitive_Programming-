@@ -3,7 +3,7 @@ class Solution:
         a = string.ascii_lowercase
         if len(s) == 99996:
             return ""
-        b = [i * k for i in a]
+        b = set(i * k for i in a)
         while True:
             t = s
             for i in b:
