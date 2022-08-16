@@ -1,11 +1,15 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        if len(s) != len(t):
-            return False
-        sHash, tHash = {}, {}
-        for iS, jT in zip(s,t):
-            if (iS in sHash and sHash[iS] != jT) or (jT in tHash and tHash[jT] != iS):
-                return False
-            sHash[iS] = jT
-            tHash[jT] = iS
+        dict = {}
+        
+        for i in range(len(s)):
+            if (s[i] in dict):
+                if (dict[s[i]] != t[i]):
+                    return False
+            else:
+                if (t[i] in dict.values()):
+                    return False
+                else:
+                    dict[s[i]] = t[i]
+                    
         return True
