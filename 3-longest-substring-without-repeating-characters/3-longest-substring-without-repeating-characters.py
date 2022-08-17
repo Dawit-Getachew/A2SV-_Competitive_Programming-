@@ -1,16 +1,12 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if len(s) == len(set(list(s))):
-            return len(s)
-        count = 0
-        Set = list()
-        for i in s:
-            if i not in Set:
-                Set.append(i)
-                count = max(count, len(Set))
+        start = 0
+        res = 0
+        dic = {}
+        for i, c in enumerate(s):
+            if c in dic and start <= dic[c]:
+                start = dic[c]+1
             else:
-                while i in Set:
-                    Set = Set[1:]
-                count = max(count, len(Set))
-                Set.append(i)
-        return count
+                res = max(res, i-start+1)
+            dic[c] = i
+        return res
