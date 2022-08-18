@@ -1,5 +1,6 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        for i in nums:
-            if nums.count(i) == 1:
-                return i
+        nums = Counter(nums)
+        for num in nums.keys():
+            if nums[num] == 1:
+                return num
