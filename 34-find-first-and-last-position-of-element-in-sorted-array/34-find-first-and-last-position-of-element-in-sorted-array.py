@@ -1,23 +1,21 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        seen = -1
-        def binarySearch(left, right, seenDir: bool):
-            nonlocal seen
-            if left > right:
-                return seen
-            mid = left + (right-left)//2
-            if nums[mid] > target:
-                return binarySearch(left, mid-1, seenDir)
-            elif nums[mid] < target:
-                return binarySearch(mid+1, right, seenDir)
-            else:
-                if seenDir:
+        return [self.search(nums, target, True), self.search(nums, target, False)]
+    def search(self, nums, target, first):
+        left = 0
+        right = len(nums)-1
+        ans = -1
+        while left <= right:
+            mid = left + (right - left)//2
+            if nums[mid] == target:
+                ans = mid
+                if first:
                     right = mid - 1
                 else:
                     left = mid + 1
-                seen = mid
-            return binarySearch(left, right, seenDir)
-        left, right = 0, len(nums)-1
-        binarySearch(left, right, True)        
-        return [seen, binarySearch(left, right, False)]
-                    
+            elif nums[mid] < target:
+                left = mid + 1
+            elif nums[mid] > target:
+                right = mid - 1
+        return ans
+                
