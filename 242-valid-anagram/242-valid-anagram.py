@@ -6,8 +6,6 @@ class Solution:
             hashMapS[i] += 1
         for i in t:
             hashMapT[i] += 1
-        print(hashMapS)
-        print(hashMapT)
         for i in hashMapS:
             if hashMapS[i] == hashMapT[i]:
                 continue
