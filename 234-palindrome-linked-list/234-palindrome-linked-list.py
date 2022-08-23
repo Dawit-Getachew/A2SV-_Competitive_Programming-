@@ -4,22 +4,19 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def isPalindrome(self, head):
-        # find the middle by using fast pointer
-        fast = slow = head
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        slow = fast = first_half= head
+        prev = None
         while fast and fast.next:
             fast = fast.next.next
+            next_ = slow.next
+            slow.next = prev
+            prev = slow
+            slow = next_
+        if fast:
             slow = slow.next
-        node = None
-        # Reverse the node after the mid element
-        while slow:
-            nxt = slow.next
-            slow.next = node
-            node = slow
-            slow = nxt
-        while node:
-            if node.val != head.val:
-                return False
-            node = node.next
-            head = head.next
-        return True
+        while prev and prev.val == slow.val:
+            prev, slow = prev.next, slow.next
+        return prev is None
+        
+        
