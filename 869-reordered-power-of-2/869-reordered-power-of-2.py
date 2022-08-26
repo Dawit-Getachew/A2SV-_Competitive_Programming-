@@ -1,8 +1,10 @@
 class Solution:
     def reorderedPowerOf2(self, n: int) -> bool:
-        digits = Counter(str(n))
-        
+        l=sorted(list(str(n)))
         for i in range(30):
-            if digits == Counter(str(1 << i)):
+            a=2**i
+            b=sorted(list(str(a)))
+            if l==b:
                 return True
-        return False
+        else:
+            return False
