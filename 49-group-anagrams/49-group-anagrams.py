@@ -1,12 +1,11 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        mydict = {}
-        for s in strs:
-            tmp = "".join(sorted(s))
-            if tmp not in mydict:
-                mydict[tmp] = [s]
-
+        check = collections.defaultdict(list)
+        res = []
+        for word in strs:
+            w = "".join(sorted(word))
+            if w in check:
+                check[w].append(word)
             else:
-                mydict[tmp].append(s)
-
-        return mydict.values()
+                check[w] = [word]
+        return [val for val in check.values()]
