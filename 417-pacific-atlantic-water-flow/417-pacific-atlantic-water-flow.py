@@ -1,31 +1,32 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        pac, atl = set(), set()
+        n, m = len(heights), len(heights[0])
+        pacific, atlantic = set(), set()
 
-        rows, cols = len(heights), len(heights[0])
+        def dfs(row, col, previous, visited):
+            in_bounds = 0 <= row < n and 0 <= col < m
 
-        def dfs(r, c, visited, prevHeight):
-            if (r, c) in visited or r < 0 or r == rows or c < 0 or c == cols or prevHeight > heights[r][c]:
+            if not in_bounds:
                 return
 
-            visited.add((r, c))
-            dfs(r+1, c, visited, heights[r][c])
-            dfs(r-1, c, visited, heights[r][c])
-            dfs(r, c+1, visited, heights[r][c])
-            dfs(r, c-1, visited, heights[r][c])
+            if (row, col) in visited:
+                return
 
-        for j in range(cols):
-            dfs(0, j, pac, heights[0][j])
-            dfs(rows-1, j, atl, heights[rows-1][j])
+            if previous > heights[row][col]:
+                return
 
-        for i in range(rows):
-            dfs(i, 0, pac, heights[i][0])
-            dfs(i, cols-1, atl, heights[i][cols-1])
+            visited.add((row, col))
+            dfs(row + 1, col, heights[row][col], visited)
+            dfs(row - 1, col, heights[row][col], visited)
+            dfs(row, col + 1, heights[row][col], visited)
+            dfs(row, col - 1, heights[row][col], visited)
 
-        res = []
+        for i in range(n):
+            dfs(i, 0, heights[i][0], pacific)
+            dfs(i, m-1, heights[i][m-1], atlantic)
 
-        for i in range(rows):
-            for j in range(cols):
-                if (i, j) in pac and (i, j) in atl:
-                    res.append([i, j])
-        return res
+        for j in range(m):
+            dfs(0, j, heights[0][j], pacific)
+            dfs(n-1, j, heights[n-1][j], atlantic)
+
+        return [list(item) for item in pacific.intersection(atlantic)]
