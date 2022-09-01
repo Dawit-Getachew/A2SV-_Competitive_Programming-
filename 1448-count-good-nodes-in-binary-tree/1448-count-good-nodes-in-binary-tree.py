@@ -6,20 +6,12 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        stk=[[root,root.val]]
-        res=1
-        while stk:
-            temp=stk.pop()
-            if temp[0].left:
-                if temp[0].left.val>=temp[1]:
-                    res+=1
-                    stk.append([temp[0].left,temp[0].left.val])
-                else:
-                    stk.append([temp[0].left,temp[1]])
-            if temp[0].right:
-                if temp[0].right.val>=temp[1]:
-                    res+=1
-                    stk.append([temp[0].right,temp[0].right.val])
-                else:
-                    stk.append([temp[0].right,temp[1]])
-        return res
+        def rec(node, max_so_far):
+            if not node:
+                return 0
+            if node.val >= max_so_far:
+                return 1 + rec(node.left, node.val) + rec(node.right, node.val)
+            return rec(node.left, max_so_far) + rec(node.right, max_so_far)
+        
+        return rec(root, -inf)
+        
