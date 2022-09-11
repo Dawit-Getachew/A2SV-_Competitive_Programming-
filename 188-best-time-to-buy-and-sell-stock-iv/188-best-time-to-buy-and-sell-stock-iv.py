@@ -1,14 +1,17 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
-        min_price = [(1 << 24)] * (k + 1)
-        max_profit = [0] * (k + 1)
-        
-        for price in prices:
-            for i in range(1, k + 1):
-                temp = price - max_profit[i-1]
-                if temp < min_price[i]: 
-                    min_price[i] = temp 
-                temp = price - min_price[i]
-                if temp > max_profit[i]:
-                    max_profit[i] = temp
-        return max_profit[k]
+        profits, vp = [], []
+
+        ps = [1000] + prices + [0]
+        for v, p in pairwise(b for a, b, c in zip(ps, ps[1:], ps[2:]) if (a < b) ^ (b < c)):
+            while vp and (v < vp[-1][0] or p >= vp[-1][1]):
+                pv, pp = vp.pop()
+                if pv <= v:
+                    v, pv = pv, v
+                if pp > pv:
+                    profits.append(pp - pv)
+            vp.append((v, p))
+        else:
+            profits.extend(p - v for v, p in vp)
+
+        return sum(nlargest(k, profits))
