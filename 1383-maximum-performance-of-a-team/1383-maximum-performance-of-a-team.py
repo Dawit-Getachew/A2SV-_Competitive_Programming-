@@ -1,19 +1,16 @@
 class Solution:
     def maxPerformance(self, n, speed, efficiency, k):
-        sorted_engineers_by_efficiency = sorted(zip(efficiency, speed), reverse=True)
-        max_performance = 0
-        sum_of_speed = 0
-        the_highest_speed_engineers = []
-        
-        for engineer_efficiency, engineer_speed in sorted_engineers_by_efficiency:
-            heapq.heappush(the_highest_speed_engineers, engineer_speed)
-            sum_of_speed += engineer_speed
+        pairs = list(zip(efficiency, speed))
+        pairs = sorted(pairs, reverse=True)
+        topk = []  
+        topk_sum = 0
+        max_perform = 0
+        for eff, sp in pairs:
+            max_perform = max(max_perform, eff * (topk_sum + sp))
 
-            if len(the_highest_speed_engineers) > k:
-                sum_of_speed -= heapq.heappop(the_highest_speed_engineers)
-
-            performance = sum_of_speed * engineer_efficiency
-            if performance > max_performance:
-                max_performance = performance
-
-        return max_performance % (10**9+7)
+            if len(topk) < k - 1 or (topk and sp > topk[0]):
+                topk_sum += sp
+                heappush(topk, sp)
+                if len(topk) > k - 1:
+                    topk_sum -= heappop(topk)
+        return max_perform % (10**9 + 7)
