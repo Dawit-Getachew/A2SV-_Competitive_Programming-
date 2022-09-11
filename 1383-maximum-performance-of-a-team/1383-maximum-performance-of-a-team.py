@@ -1,16 +1,15 @@
-from heapq import heappush as hpush, heappop as hpop
 class Solution:
     def maxPerformance(self, n: int, speed: List[int], efficiency: List[int], k: int) -> int:
-        MOD = 10 ** 9 + 7
-        heap = []
-        res = 0
-        total_spd = 0
-        min_efe = math.inf
-        for efe, spd in sorted(zip(efficiency, speed), reverse=True):
-            total_spd += spd
-            min_efe = min(min_efe, efe)
-            hpush(heap, spd)
-            if len(heap) > k:
-                total_spd -= hpop(heap)
-            res = max(res, total_spd * min_efe)
-        return res % MOD
+        engineers = sorted(zip(efficiency, speed), reverse=True, key=lambda x: x[0])
+        speed_sum, result = 0, 0
+        heap_engineers = []
+        for count_efficiency, count_speed in engineers:
+            if len(heap_engineers) >= k:
+                speed_sum -= heap_engineers[0]
+                heapq.heappop(heap_engineers)
+            
+            heapq.heappush(heap_engineers, count_speed)
+            speed_sum += count_speed
+            result = max(result, (speed_sum * count_efficiency))
+            
+        return result % ((10**9) + 7)
