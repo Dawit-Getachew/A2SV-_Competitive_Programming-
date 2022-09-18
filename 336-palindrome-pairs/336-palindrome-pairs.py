@@ -1,20 +1,19 @@
 class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
-        ans=[]
-        hmap={}
-        idx=0
-        for w in words:
-            hmap[w[::-1]]=idx
-            idx+=1
+        result = []
+        ws = []
         for i, word in enumerate(words):
-            if word in hmap and hmap[word]!=i:
-                ans.append([i,hmap[word]])            
-            if word!="" and "" in hmap and word==word[::-1]:
-                ans.append([i,hmap[""]])
-                ans.append([hmap[""],i])
-            for k in range(len(word)):
-                if word[k:] in hmap and word[:k]==word[k-1::-1]:
-                    ans.append([hmap[word[k:]],i])
-                if word[:k] in hmap and word[k:]==word[:k-1:-1]:
-                    ans.append([i, hmap[word[:k]]])
-        return ans
+            ws.append((word,       False, i, len(word)))
+            ws.append((word[::-1], True,  i, len(word)))
+        ws.sort()
+        for i, (a, a_reversed, a_idx, a_len) in enumerate(ws):
+            for j in range(i + 1, len(ws)):
+                b, b_reversed, b_idx, _ = ws[j]
+                if b.startswith(a):
+                    if a_idx != b_idx and a_reversed != b_reversed:
+                        rest = b[a_len:]
+                        if rest == rest[::-1]: 
+                            result.append([a_idx, b_idx] if b_reversed else [b_idx, a_idx])
+                else:
+                    break
+        return result
