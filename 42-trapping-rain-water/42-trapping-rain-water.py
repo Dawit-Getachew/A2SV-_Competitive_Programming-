@@ -1,21 +1,21 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        trapped=0
-        i=0
-        j=len(height)-1
-        lmax=0
-        rmax=0
-        while i<=j:
-            if height[i]<=rmax: 
-                if height[i]>lmax:
-                    lmax=height[i] 
-                else:
-                    trapped+=lmax-height[i]
-                i+=1
+        if len(height) <= 2:
+            return 0
+        result = 0
+        max_left = height[0]
+        max_right = height[-1]
+        meet_point = height.index(max(height))
+        for x in range(1, meet_point):
+            current_bar_height = height[x]
+            if current_bar_height >= max_left:
+                max_left = current_bar_height
             else:
-                if height[j]>rmax: 
-                    rmax=height[j]
-                else:
-                    trapped+=rmax-height[j]
-                j-=1
-        return trapped
+                result += max_left - current_bar_height
+        for x in range(len(height)-1, meet_point, -1):
+            current_bar_height = height[x]
+            if current_bar_height >= max_right:
+                max_right = current_bar_height
+            else:
+                result += max_right - current_bar_height
+        return result
