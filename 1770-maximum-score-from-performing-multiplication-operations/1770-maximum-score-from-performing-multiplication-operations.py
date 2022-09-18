@@ -1,9 +1,10 @@
 class Solution:
     def maximumScore(self, nums: List[int], multipliers: List[int]) -> int:
-        score = [0]
-        mn = -1000*1000*1000
-        for rd, multiplier in enumerate(multipliers,1):
-            l1 =  [score[i]+num*multiplier for i,num in enumerate(nums[rd-1::-1])] +[mn]
-            l2 =  [mn]+[score[i] + num * multiplier for i, num in enumerate(nums[:-(rd+1):-1])]
-            score = [max(l1[i],l2[i])for i in range(rd+1)]
-        return max(score)
+        dp = [0] * (len(multipliers) + 1)
+        for m in range(len(multipliers) - 1, -1, -1):
+            pd = [0] * (m + 1)
+            for l in range(m, -1, -1):
+                pd[l] = max(dp[l + 1] + multipliers[m] * nums[l], 
+                            dp[l] + multipliers[m] * nums[~(m - l)])
+            dp = pd
+        return dp[0]
