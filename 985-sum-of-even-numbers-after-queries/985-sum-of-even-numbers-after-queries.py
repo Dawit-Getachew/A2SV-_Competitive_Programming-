@@ -1,12 +1,16 @@
 class Solution:
     def sumEvenAfterQueries(self, nums: List[int], queries: List[List[int]]) -> List[int]:
-        even_sum = sum(filter(lambda num: num%2 == 0, nums))
-        res = []
-        for val, idx in queries:
-            if not nums[idx] % 2:
-                even_sum -= nums[idx]
-            nums[idx] += val
-            if not nums[idx] % 2:
-                even_sum += nums[idx]            
-            res.append(even_sum)            
-        return res
+        summ = sum([i for i in nums if not i % 2])
+        output = []
+        for value, index in queries:
+            if nums[index] % 2 == 0:
+                if value % 2 == 0:
+                    summ += value
+                else:
+                    summ -= nums[index]
+            else:
+                if value % 2 == 1:
+                    summ += nums[index] + value
+            output.append(summ)
+            nums[index] += value
+        return output
